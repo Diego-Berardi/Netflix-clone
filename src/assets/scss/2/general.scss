@@ -1,0 +1,38 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+body {
+  background-color: $background-color;
+  color: white;
+}
+
+.btn {
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+.link{
+  color: white;
+  text-decoration: none;
+  transition: color 200ms ease-in-out;
+}
+.link:hover{
+  color: #888888;
+}
+ul{
+  list-style: none;
+}
+img {
+  width: 100%;
+}
+
+button{
+  color: white;
+}

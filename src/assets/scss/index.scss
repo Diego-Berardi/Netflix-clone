@@ -1,0 +1,14 @@
+@import "./1/variables.scss";
+
+@import "./2/general.scss";
+@import "./2/layout.scss";
+@import "./2/typhography.scss";
+
+@import "./3-components/header.scss";
+@import "./3-components/mobile-menu.scss";
+@import "./3-components/movie-slider-container.scss";
+@import "./3-components/single-movie-item.scss";
+
+
+@import "./4-pages/home-page.scss";
+@import "./4-pages/single-movie-page.scss"

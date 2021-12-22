@@ -1,0 +1,46 @@
+header {
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    font-size: 1.2rem;
+    .pc-menu{
+      display: none;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      .icons{
+        display: flex;
+        gap: 1rem;
+        font-size: 1.5rem;
+      }
+      ul{
+        display: flex;
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+    }
+    .mobile-menu-btn{
+      justify-self: end;
+      border: none;
+      font-size: 1.5rem;
+    }
+    
+  }
+}
+
+
+@media only screen and (min-width: 550px) {
+  header nav {
+    // font-size: 1.3rem;
+
+    justify-content: start;
+    .pc-menu{
+      display: flex;
+    }
+    .mobile-menu-btn{
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+.single-Movie {
+    border-radius: 5px;
+    transition: transform 200ms ease-in-out;
+  img {
+    width: 7.6rem;
+  }
+}
+.single-Movie:hover {
+    transform: scale(1.1);
+    // z-index: 2;
+    // padding: 10px;
+}
+
+@media only screen and (min-width: 500px) {
+  .single-Movie {
+  img {
+    width: 8rem;
+  }
+}
+}
+
+@media only screen and (min-width: 900px) {
+  .single-Movie {
+  img {
+    width: 9rem;
+  }
+}
+}
