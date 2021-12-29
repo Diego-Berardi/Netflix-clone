@@ -1,0 +1,11 @@
+main .movie-page{
+    .movie-div{
+        .info{
+            .biography{
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    }
+}

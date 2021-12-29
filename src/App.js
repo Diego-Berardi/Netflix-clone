@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
-import SearchPage from "./pages/SearchPage";
 import TypePage from "./pages/TypePage";
 import ProfilePage from "./pages/ProfilePage";
 import SingleMoviePage from "./pages/SingleMoviePage";
+import SinglePersonPage from "./pages/SinglePersonPage";
 
 function App() {
   return (
@@ -12,9 +12,10 @@ function App() {
         <Route index element={<TypePage />} />
 
         <Route path="/:type" element={<TypePage />} />
-        <Route path="/search" element={<SearchPage />} />
 
         <Route path="/profile" element={<ProfilePage />} />
+
+        <Route path="/person/:id" element={< SinglePersonPage /> } />
         <Route path="/:media_type/:id" element={<SingleMoviePage />} />
       </Routes>
     </>

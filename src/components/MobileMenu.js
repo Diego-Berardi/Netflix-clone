@@ -18,20 +18,18 @@ const MobileMenu = () => {
             <Header />
             <ul className="mobile-list">
               <li>
-                <Link to="/movie">Movie</Link>
-              </li>
-              <li>
-                <Link to="/tv">Tv Shows</Link>
-              </li>
-              <li>
-                <Link to="/person">People</Link>
-              </li>
-              <li className="li-icons-menu">
-                <Link to="/search">
-                  <GoSearch />
+                <Link className="link" to="/movie">
+                  Movie
                 </Link>
-                <Link to="/profile">
-                  <CgProfile />
+              </li>
+              <li>
+                <Link className="link" to="/tv">
+                  Tv Shows
+                </Link>
+              </li>
+              <li>
+                <Link className="link" to="/person">
+                  People
                 </Link>
               </li>
             </ul>

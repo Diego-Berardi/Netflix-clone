@@ -1,52 +1,36 @@
 .movie-slider-container {
+  margin: 1rem auto;
   .movie-slider-container2 {
     position: relative;
 
     .movie-slider {
       display: flex;
       flex-direction: row;
+      gap: 1.5rem;
       max-width: 100%;
       padding: 1rem 0;
 
-      overflow: scroll;
-      overflow-y: clip;
-      // overflow-x: visible;
-      gap: 1.5rem;
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+      overflow-x: scroll;
+      // overflow-y: clip;
+
+      scrollbar-width: thin;
     }
+
     .movie-slider::-webkit-scrollbar {
+      width: 5px;
+      height: 8px;
+      background-color: transparent; /* or add it to the track */
+    }
+    .movie-slider::-webkit-scrollbar-thumb {
       display: none;
+      background: white;
+      border-radius: 5px;
     }
-    .after,
-    .before {
-      display: none;
-      font-size: 2rem;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 30px;
-      background-color: #0000008c;
-      cursor: pointer;
-      z-index: 3;
-      transition: background-color 150ms ease-in-out;
-    }
-    .before {
-      left: 0;
-      
-    }
-    .after {
-      right: 0;
-    }
+    // .movie-slider:hover  article{
+    //   background-color: red;
+    // }
   }
-  .movie-slider-container2:hover .before,
-  .movie-slider-container2:hover .after {
-    display: flex;
-  }
-  .after:hover,
-  .before:hover {
-    background-color: #000000d0;
+  .movie-slider-container2:hover .movie-slider::-webkit-scrollbar-thumb {
+    display: block;
   }
 }

@@ -1,53 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../useFetch";
-import apiRequest from "../apiRequest";
 import { useGlobalContext } from "../context";
+
+import useFetch from "../useFetch";
+import apiRequests from "../apiRequest";
 
 import Header from "../components/Header";
 import MobileMenu from "../components/MobileMenu";
+import SearchBar from "../components/SearchBar";
 import MoviesSlider from "../components/MoviesSlider";
 
 const SingleMoviePage = () => {
-  const { addMylist, removeFromMylist, checkIfMovieList } = useGlobalContext();
+  const { addMylist, removeFromMylist, checkIfMovieInList, showSearchBar } =
+    useGlobalContext();
   const { id, media_type } = useParams();
 
   const [isInMyList, setIsInMyList] = useState(false);
 
   const { data, isLoading, isError, fetchData } = useFetch(
-    `${apiRequest.base_url}/${media_type}/${id}${apiRequest.api_key}`
+    `${apiRequests.base_url}/${media_type}/${id}${apiRequests.api_key}`
   );
   const { data: videos, fetchData: fetchVideo } = useFetch(
-    `${apiRequest.base_url}/${media_type}/${id}/videos${apiRequest.api_key}`
+    `${apiRequests.base_url}/${media_type}/${id}/videos${apiRequests.api_key}`
   );
   const { data: credits, fetchData: fetchCredits } = useFetch(
-    `${apiRequest.base_url}/${media_type}/${id}/credits${apiRequest.api_key}`
+    `${apiRequests.base_url}/${media_type}/${id}/credits${apiRequests.api_key}`
   );
-  console.log(credits);
 
   useEffect(() => {
-    if (checkIfMovieList(id)) setIsInMyList(true);
+    if (checkIfMovieInList(id)) setIsInMyList(true);
     else setIsInMyList(false);
     fetchData(
-      `${apiRequest.base_url}/${media_type}/${id}${apiRequest.api_key}`
+      `${apiRequests.base_url}/${media_type}/${id}${apiRequests.api_key}`
     );
     fetchVideo(
-      `${apiRequest.base_url}/${media_type}/${id}/videos${apiRequest.api_key}`
+      `${apiRequests.base_url}/${media_type}/${id}/videos${apiRequests.api_key}`
     );
     fetchCredits(
-      `${apiRequest.base_url}/${media_type}/${id}/credits${apiRequest.api_key}`
+      `${apiRequests.base_url}/${media_type}/${id}/credits${apiRequests.api_key}`
     );
   }, [id]);
 
   if (isLoading) return <></>;
   if (isError) return <></>;
   if (!data) return <></>;
-  // console.log(data)
 
   const {
     name,
     title,
     poster_path,
+    backdrop_path,
     overview,
     vote_average,
     release_date,
@@ -56,56 +58,73 @@ const SingleMoviePage = () => {
 
   let trailerObj;
   if (videos) {
-    trailerObj = videos.results.find(
-      (elem) => (elem.name = "Official Trailer")
-    );
+    const listVideosRev = [...videos.results].reverse();
+    trailerObj = listVideosRev.find((elem) => elem.type === "Trailer");
   }
 
   return (
     <>
       <Header />
       <MobileMenu />
+      {showSearchBar && (
+        <div className="search-bar-mobile">
+          <SearchBar />
+        </div>
+      )}
       <main>
-        <section className="container movie-page">
-          <div className="movie-div">
-            <img src={`${apiRequest.imgBase_url}${poster_path}`} alt="" />
-            <div className="info">
-              <div className="header-info">
-                <h2>{title || name}</h2>
-                <p>{vote_average}</p>
-              </div>
-              <p>{release_date}</p>
-              <p>{overview}</p>
-              <div className="genres-div">
-                Genres:
-                {genres && genres.map((elem, i) => {
-                  return <p key={i}>{elem.name}</p>;
-                })}
-              </div>
-              <div>
-                {!isInMyList ? (
-                  <button
-                    className="btn btn-info "
-                    onClick={() => {
-                      addMylist({ id, media_type, poster_path });
-                      if (checkIfMovieList(id)) setIsInMyList(true);
-                      else setIsInMyList(false);
-                    }}
-                  >
-                    Add to my list
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-info"
-                    onClick={() => {
-                      removeFromMylist(id);
-                      if (checkIfMovieList(id)) setIsInMyList(true);
-                      else setIsInMyList(false);
-                    }}
-                  >
-                    Remove from my list
-                  </button>
-                )}
+        <section className=" movie-page">
+          <div
+            className="img-background"
+            style={{
+              backgroundImage: `url('${apiRequests.imgBase_url}${backdrop_path}')`,
+            }}
+          >
+            <div className="background-single-movie-page">
+              <div className="movie-div">
+                <img src={`${apiRequests.imgBase_url}${poster_path}`} alt="" />
+                <div className="info">
+                  <div className="display-flex">
+                    <h2>{title || name}</h2>
+                    {release_date && <p>( {release_date.split("-")[0]} )</p>}
+                  </div>
+                  <div className="display-flex">
+                    <div className="vote-avarage">
+                      <p>{vote_average * 10}%</p>
+                    </div>
+                    <div className="genres-div">
+                      {genres &&
+                        genres.map((elem, i) => {
+                          return <p key={i}>- {elem.name}</p>;
+                        })}
+                    </div>
+                  </div>
+                  <p>{overview}</p>
+                  <div>
+                    {!isInMyList ? (
+                      <button
+                        className="btn btn-MyList "
+                        onClick={() => {
+                          addMylist({ id, media_type, poster_path });
+                          if (checkIfMovieInList(id)) setIsInMyList(true);
+                          else setIsInMyList(false);
+                        }}
+                      >
+                        Add to my list
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-MyList"
+                        onClick={() => {
+                          removeFromMylist(id);
+                          if (checkIfMovieInList(id)) setIsInMyList(true);
+                          else setIsInMyList(false);
+                        }}
+                      >
+                        Remove from my list
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -135,7 +154,7 @@ const SingleMoviePage = () => {
           <div className="similar-container">
             <MoviesSlider
               title="Similar"
-              url={`${apiRequest.base_url}/${media_type}/${id}/similar${apiRequest.api_key}`}
+              url={`${apiRequests.base_url}/${media_type}/${id}/similar${apiRequests.api_key}`}
               pageValue={media_type}
             />
           </div>

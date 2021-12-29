@@ -1,62 +1,86 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [myList, setMylist] = useState([]);
-  console.log(myList);
+  const navigate = useNavigate();
 
-  const checkIfMovieList = (id) => {
-    return myList.find((elem) => elem.id === id)
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [searchValue, setSearchValue] = useState(null);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
+  const [list, setList] = useState(false);
+
+  const checkIfMovieInList = (id) => {
+    const myList = returnMyList();
+    if (!myList) return;
+    return myList.find((elem) => elem.id == id);
   };
 
-  const removeFromMylist= (id)=>{
-    const tempList = myList
-    const theObj = tempList.find((elem) => elem.id === id)
-    const index = tempList.indexOf(theObj)
-    tempList.splice(index, 1)
-    setMylist(tempList)
-    setLocalStorageList()
-  }
+  const removeFromMylist = (id) => {
+    setList(!list); // force the render
 
-  const setLocalStorageList = () => {
-    let listStringfy = myList;
-    listStringfy = JSON.stringify(listStringfy);
+    const tempList = returnMyList();
+    const theObj = tempList.find((elem) => elem.id == id);
+    const index = tempList.indexOf(theObj);
+    tempList.splice(index, 1);
+
+    setMyList(tempList);
+  };
+
+  const setMyList = (list) => {
+    const listStringfy = JSON.stringify(list);
 
     localStorage.setItem("myList", listStringfy);
   };
 
-  const getLocalStorageList = () => {
-    let list = localStorage.getItem("myList");
-    if (!list) return setMylist([]);
-    list = JSON.parse(list);
-    setMylist(list);
+  const returnMyList = () => {
+    const listStr = localStorage.getItem("myList");
+    if (!listStr) return;
+    const list = JSON.parse(listStr);
+    return list;
   };
 
   const addMylist = (movie) => {
-    const prova = myList.find((elem) => elem.id === movie.id);
-    if (prova) return;
-    const tempArr = myList;
-    tempArr.push(movie);
-    setMylist(tempArr);
-    setLocalStorageList();
+    setList(!list); // force the render
+
+    if (returnMyList()) {
+      const duplicate = returnMyList().find((elem) => elem.id == movie.id);
+      if (duplicate) return;
+      const newList = returnMyList();
+      newList.push(movie);
+
+      setMyList(newList);
+    } else {
+      setMyList([movie]);
+    }
   };
 
-  useEffect(() => {
-    
-    getLocalStorageList();
-  }, []);
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+    navigate("/");
+  };
 
   return (
     <AppContext.Provider
       value={{
         showMobileMenu,
         setShowMobileMenu,
+        showSearchBar,
+        setShowSearchBar,
+
         addMylist,
         removeFromMylist,
-        checkIfMovieList,
-        myList,
+        checkIfMovieInList,
+        returnMyList,
+
+        handleChange,
+        searchValue,
+        setSearchValue,
+
+        showSearchBar,
+        setShowSearchBar,
       }}
     >
       {children}

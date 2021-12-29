@@ -1,0 +1,39 @@
+.background-big-screen-section {
+  width: 100%;
+  background: rgb(3, 2, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(3, 2, 0, 0.5522409647452731) 29%,
+    rgba(0, 0, 0, 0) 59%
+  );
+
+  display: flex;
+  align-items: center;
+  .info-container {
+    margin-left: 3rem;
+    margin: 3rem;
+    max-width: 400px;
+    .btn-container {
+      margin: 1rem 0;
+      display: flex;
+      gap: 1rem;
+      .link-big-screen {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .background-big-screen-section {
+    height: 400px;
+  }
+}
+@media screen and (min-width: 700px) {
+  .background-big-screen-section {
+    height: 500px;
+  }
+}

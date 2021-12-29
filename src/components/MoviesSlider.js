@@ -1,42 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import useFetch from "../useFetch";
-import { useGlobalContext } from "../context";
 
 import SingleMovie from "./SingleMovie";
 
 import apiRequests from "../apiRequest";
 
-import { MdArrowBackIosNew } from "react-icons/md";
-import { MdArrowForwardIos } from "react-icons/md";
-
 const MoviesSlider = ({ title, url, pageValue, listParam }) => {
-  let scroolPerClick = 400;
-  let scroolAmount = 0;
-
-  const refMovieSlider = useRef(null);
-
-  const scroolLeft = () => {
-    refMovieSlider.current.scrollTo({
-      top: 0,
-      left: (scroolAmount -= scroolPerClick),
-      behavior: "smooth",
-    });
-    if (scroolAmount < 0) {
-      scroolAmount = 0;
-    }
-  };
-  const scroolRight = () => {
-    refMovieSlider.current.scrollTo({
-      top: 0,
-      left: (scroolAmount += scroolPerClick),
-      behavior: "smooth",
-    });
-
-    if (scroolAmount > 2300) {
-      scroolAmount = 2300;
-    }
-  };
-
   const { data, isLoading, isError, fetchData } = useFetch(url);
 
   useEffect(() => {
@@ -52,22 +21,23 @@ const MoviesSlider = ({ title, url, pageValue, listParam }) => {
 
     list = data.results;
   } else {
-    console.log(listParam);
+    if (!listParam) return <></>;
     list = listParam;
-    console.log(list);
+
+    if (pageValue == "tv" || pageValue == "movie") {
+      list = list.filter((elem) => elem.media_type == pageValue);
+    }
   }
 
   return (
     <>
-      {!(list.length < 1) && (
-        <div className="movie-slider-container">
+      {list.length > 0 && (
+        <section className=" container movie-slider-container">
           <h2>{title}</h2>
           <div className="movie-slider-container2">
-            <div className="before" onClick={scroolLeft}>
-              <MdArrowBackIosNew />
-            </div>
-            <div className="movie-slider" ref={refMovieSlider}>
+            <div className="movie-slider">
               {list.map((elem, i) => {
+                if (!(elem.poster_path || elem.profile_path)) return;
                 const img_url = `${apiRequests.imgBase_url}${
                   elem.poster_path || elem.profile_path
                 }`;
@@ -82,11 +52,8 @@ const MoviesSlider = ({ title, url, pageValue, listParam }) => {
                 );
               })}
             </div>
-            <div className="after" onMouseDown={scroolRight}>
-              <MdArrowForwardIos />
-            </div>
           </div>
-        </div>
+        </section>
       )}
     </>
   );

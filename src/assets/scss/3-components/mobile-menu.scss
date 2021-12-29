@@ -5,6 +5,7 @@
   right: 0;
   left: 0;
   background-color: $background-color;
+  z-index: 3;
 
   .mobile-list {
     margin-top: 5em;
@@ -15,15 +16,10 @@
     li {
       font-size: 2.3rem;
     }
-    .li-icons-menu {
-      display: flex;
-
-      gap: 1.5em;
-    }
   }
 }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 750px) {
   .mobile-menu {
     display: none !important;
   }

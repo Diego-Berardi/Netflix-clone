@@ -3,12 +3,17 @@
 @import "./2/general.scss";
 @import "./2/layout.scss";
 @import "./2/typhography.scss";
+@import "./2/btn.scss";
 
 @import "./3-components/header.scss";
 @import "./3-components/mobile-menu.scss";
 @import "./3-components/movie-slider-container.scss";
 @import "./3-components/single-movie-item.scss";
-
+@import "./3-components/big-screen-movie.scss";
+@import "./3-components/search-bar.scss";
+@import "./3-components/footer.scss";
 
 @import "./4-pages/home-page.scss";
-@import "./4-pages/single-movie-page.scss"
+@import "./4-pages/single-movie-page.scss";
+@import "./4-pages/single-person-page.scss";
+@import "./4-pages/search-page.scss";

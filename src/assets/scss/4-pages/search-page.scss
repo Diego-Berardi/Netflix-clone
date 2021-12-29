@@ -1,0 +1,15 @@
+.search-page-container {
+  .container-search-list {
+    margin: 2rem 0;
+    .div-search-list {
+      align-self: center;
+      justify-self: center;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  }
+}

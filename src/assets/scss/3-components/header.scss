@@ -4,43 +4,47 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 0;
-    font-size: 1.2rem;
-    .pc-menu{
+    font-size: 1rem;
+    .pc-menu {
       display: none;
       flex-direction: row;
       justify-content: space-between;
       width: 100%;
-      .icons{
-        display: flex;
-        gap: 1rem;
-        font-size: 1.5rem;
-      }
-      ul{
+
+      ul {
         display: flex;
         gap: 1rem;
         padding: 0 1rem;
       }
+      .icons {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.5rem;
+      }
     }
-    .mobile-menu-btn{
+    .mobile-menu-btn {
       justify-self: end;
       border: none;
       font-size: 1.5rem;
     }
-    
   }
 }
 
-
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 750px) {
   header nav {
-    // font-size: 1.3rem;
-
     justify-content: start;
-    .pc-menu{
+    .pc-menu {
       display: flex;
     }
-    .mobile-menu-btn{
+    .mobile-btns {
       display: none;
     }
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  header nav {
+    font-size: 1.3rem;
   }
 }
