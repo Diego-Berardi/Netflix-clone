@@ -36,7 +36,7 @@ const BigScreenMovie = ({
       <div className="background-big-screen-section">
         <div className="info-container">
           <h2>{title || name}</h2>
-          <p>{overview.substring(0, 250)}...</p>
+          {overview && <p>{overview.substring(0, 250)}...</p>}
           <div className="btn-container">
             {!isInMyList ? (
               <button

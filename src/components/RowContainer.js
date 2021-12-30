@@ -12,21 +12,30 @@ const RowContainer = ({ pageValue }) => {
 
   const myList = returnMyList();
 
-  const { data } = useFetch(
-    `${apiRequests.TrendingBase_url}/all/week${apiRequests.api_key}`
+  const { data, fetchData } = useFetch(
+    `${apiRequests.TrendingBase_url}/${pageValue}/week${apiRequests.api_key}`
   );
 
   const getIndex = () => {
     const now = new Date().getTime();
     return Math.round(Math.round(now / 1000) / (60 * 5)) % 20;
   };
+
+  useEffect(() => {
+    fetchData(
+      `${apiRequests.TrendingBase_url}/${pageValue}/week${apiRequests.api_key}`
+    );
+  }, [pageValue]);
   return (
     <main className="">
-      {data && <BigScreenMovie {...data.results[getIndex()]} />}
+      {data && pageValue !== "person" && (
+        <BigScreenMovie {...data.results[getIndex()]} />
+      )}
       <MoviesSlider
         title={"Trending Now"}
         url={`${apiRequests.TrendingBase_url}/${pageValue}/week${apiRequests.api_key}`}
       />
+
       {!(pageValue == "person") && (
         <MoviesSlider
           title={"My List "}
