@@ -1,19 +1,22 @@
 import React, { useEffect } from "react";
-import apiRequests from "../apiRequest";
-import useFetch from "../useFetch";
+import { useGlobalContext } from "../../context";
 
-import MoviesSlider from "./MoviesSlider";
-import BigScreenMovie from "./BigScreenMovie";
+import apiRequests from "../../apiRequest";
+import useFetch from "../../useFetch";
 
-import { useGlobalContext } from "../context";
+// components
+import MoviesSlider from "../movie-slider/MoviesSlider";
+import BigScreenMovie from "../big-screen-movie/BigScreenMovie";
+
 
 const RowContainer = ({ pageValue }) => {
   const { returnMyList } = useGlobalContext();
 
-  const myList = returnMyList();
+  const myList = returnMyList('myList');
+  const watchedList = returnMyList("watchedList");
 
   const { data, fetchData } = useFetch(
-    `${apiRequests.TrendingBase_url}/${pageValue}/week${apiRequests.api_key}`
+    `${apiRequests.TrendingBase_url}/${pageValue}/week`
   );
 
   const getIndex = () => {
@@ -23,7 +26,7 @@ const RowContainer = ({ pageValue }) => {
 
   useEffect(() => {
     fetchData(
-      `${apiRequests.TrendingBase_url}/${pageValue}/week${apiRequests.api_key}`
+      `${apiRequests.TrendingBase_url}/${pageValue}/week`
     );
   }, [pageValue]);
   return (
@@ -33,7 +36,7 @@ const RowContainer = ({ pageValue }) => {
       )}
       <MoviesSlider
         title={"Trending Now"}
-        url={`${apiRequests.TrendingBase_url}/${pageValue}/week${apiRequests.api_key}`}
+        url={`${apiRequests.TrendingBase_url}/${pageValue}/week`}
       />
 
       {!(pageValue == "person") && (
@@ -44,17 +47,25 @@ const RowContainer = ({ pageValue }) => {
           pageValue={pageValue}
         />
       )}
+      {!(pageValue == "person") && (
+        <MoviesSlider
+          title={"Watched List "}
+          url={false}
+          listParam={watchedList}
+          pageValue={pageValue}
+        />
+      )}
 
       {pageValue === "all" ? (
         <>
           <MoviesSlider
             title={"popular Movies"}
-            url={`${apiRequests.base_url}/movie/popular${apiRequests.api_key}`}
+            url={`${apiRequests.base_url}/movie/popular`}
             pageValue="movie"
           />
           <MoviesSlider
             title={"popular Tv Shows"}
-            url={`${apiRequests.base_url}/tv/popular${apiRequests.api_key}`}
+            url={`${apiRequests.base_url}/tv/popular`}
             pageValue="tv"
           />
         </>
@@ -63,14 +74,14 @@ const RowContainer = ({ pageValue }) => {
           title={`popular ${pageValue === "movie" ? "Movies" : ""} ${
             pageValue === "tv" ? "Tv Shows" : ""
           }`}
-          url={`${apiRequests.base_url}/${pageValue}/popular${apiRequests.api_key}`}
+          url={`${apiRequests.base_url}/${pageValue}/popular`}
           pageValue={pageValue}
         />
       )}
       {(pageValue == "person" || pageValue == "all") && (
         <MoviesSlider
           title="People"
-          url={`${apiRequests.TrendingBase_url}/person/week${apiRequests.api_key}`}
+          url={`${apiRequests.TrendingBase_url}/person/week`}
           pageValue={pageValue}
         />
       )}

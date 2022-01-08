@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 import { useParams } from "react-router-dom";
 
-import Header from "../components/Header";
-import MobileMenu from "../components/MobileMenu";
-import SearchBar from "../components/SearchBar";
-import SearchContainer from "../components/SearchContainer";
-import RowContainer from "../components/RowContainer";
-import Footer from "../components/Footer";
+// components
+import Header from "../../components/header/Header";
+import MobileMenu from "../../components/mobile-menu/MobileMenu";
+import SearchBar from "../../components/search-bar/SearchBar";
+import SearchContainer from "../../components/search-container/SearchContainer";
+import RowContainer from "../../components/sliders-container/SlidersContainer";
+import Footer from "../../components/footer/Footer";
+
+// scss
+import "./home-page.scss";
 
 const TypePage = () => {
   const { setShowMobileMenu, searchValue, setSearchValue, showSearchBar } =

@@ -1,6 +1,6 @@
 const key = process.env.REACT_APP_API_KEY;
 const requests = {
-  api_key: `?api_key=${key}`,
+  api_key: key,
   base_url: `https://api.themoviedb.org/3`,
 
   TrendingBase_url: `https://api.themoviedb.org/3/trending`,

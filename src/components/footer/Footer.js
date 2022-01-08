@@ -3,6 +3,8 @@ import React from "react";
 import { AiOutlineGithub } from "react-icons/ai";
 import { AiFillLinkedin } from "react-icons/ai";
 
+import './footer.scss'
+
 const Footer = () => {
   return (
     <footer>

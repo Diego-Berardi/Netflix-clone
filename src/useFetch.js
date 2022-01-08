@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import apiRequest from './apiRequest'
 const axios = require("axios");
 
 const useFetch = (url) => {
@@ -10,12 +11,15 @@ const useFetch = (url) => {
     setIsError(null);
     setIsLoading(true);
     try {
-      const res = await axios.get(url);
+      const res = await axios.get(url, {
+        params: {
+          api_key: apiRequest.api_key,
+        },
+      });
       setIsLoading(false);
       setData(res.data);
     } catch (error) {
       setIsLoading(false);
-      console.log(error);
       setIsError(error);
     }
   };

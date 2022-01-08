@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 
-import useFetch from "../useFetch";
-import apiRequests from "../apiRequest";
+import useFetch from "../../useFetch";
+import apiRequests from "../../apiRequest";
 
-import Header from "../components/Header";
-import MobileMenu from "../components/MobileMenu";
-import SearchBar from "../components/SearchBar";
-import MoviesSlider from "../components/MoviesSlider";
+// components
+import Header from "../../components/header/Header";
+import MobileMenu from "../../components/mobile-menu/MobileMenu";
+import SearchBar from "../../components/search-bar/SearchBar";
+import MoviesSlider from "../../components/movie-slider/MoviesSlider";
+
+// scss
+import "./single-movie-page.scss";
+
+import { MdDone } from "react-icons/md";
 
 const SingleMoviePage = () => {
   const { addMylist, removeFromMylist, checkIfMovieInList, showSearchBar } =
@@ -16,28 +22,33 @@ const SingleMoviePage = () => {
   const { id, media_type } = useParams();
 
   const [isInMyList, setIsInMyList] = useState(false);
+  const [isInWatchedList, setIsInWatchedList] = useState(false);
 
   const { data, isLoading, isError, fetchData } = useFetch(
-    `${apiRequests.base_url}/${media_type}/${id}${apiRequests.api_key}`
+    `${apiRequests.base_url}/${media_type}/${id}`
   );
   const { data: videos, fetchData: fetchVideo } = useFetch(
-    `${apiRequests.base_url}/${media_type}/${id}/videos${apiRequests.api_key}`
+    `${apiRequests.base_url}/${media_type}/${id}/videos`
   );
   const { data: credits, fetchData: fetchCredits } = useFetch(
-    `${apiRequests.base_url}/${media_type}/${id}/credits${apiRequests.api_key}`
+    `${apiRequests.base_url}/${media_type}/${id}/credits`
   );
 
   useEffect(() => {
-    if (checkIfMovieInList(id)) setIsInMyList(true);
+    if (checkIfMovieInList("myList", id)) setIsInMyList(true);
     else setIsInMyList(false);
+
+    if (checkIfMovieInList("watchedList", id)) setIsInWatchedList(true);
+    else setIsInWatchedList(false);
+
     fetchData(
-      `${apiRequests.base_url}/${media_type}/${id}${apiRequests.api_key}`
+      `${apiRequests.base_url}/${media_type}/${id}`
     );
     fetchVideo(
-      `${apiRequests.base_url}/${media_type}/${id}/videos${apiRequests.api_key}`
+      `${apiRequests.base_url}/${media_type}/${id}/videos`
     );
     fetchCredits(
-      `${apiRequests.base_url}/${media_type}/${id}/credits${apiRequests.api_key}`
+      `${apiRequests.base_url}/${media_type}/${id}/credits`
     );
   }, [id]);
 
@@ -99,13 +110,14 @@ const SingleMoviePage = () => {
                     </div>
                   </div>
                   <p>{overview}</p>
-                  <div>
+                  <div className="display-flex btn-div">
                     {!isInMyList ? (
                       <button
                         className="btn btn-MyList "
                         onClick={() => {
-                          addMylist({ id, media_type, poster_path });
-                          if (checkIfMovieInList(id)) setIsInMyList(true);
+                          addMylist("myList", { id, media_type, poster_path });
+                          if (checkIfMovieInList("myList", id))
+                            setIsInMyList(true);
                           else setIsInMyList(false);
                         }}
                       >
@@ -115,12 +127,44 @@ const SingleMoviePage = () => {
                       <button
                         className="btn btn-MyList"
                         onClick={() => {
-                          removeFromMylist(id);
-                          if (checkIfMovieInList(id)) setIsInMyList(true);
+                          removeFromMylist("myList", id);
+
+                          if (checkIfMovieInList("myList", id))
+                            setIsInMyList(true);
                           else setIsInMyList(false);
                         }}
                       >
                         Remove from my list
+                      </button>
+                    )}
+                    {!isInWatchedList ? (
+                      <button
+                        className="btn btn-MyList "
+                        onClick={() => {
+                          addMylist("watchedList", {
+                            id,
+                            media_type,
+                            poster_path,
+                          });
+                          if (checkIfMovieInList("watchedList", id))
+                            setIsInWatchedList(true);
+                          else setIsInWatchedList(false);
+                        }}
+                      >
+                        watched it?
+                      </button>
+                    ) : (
+                      <button
+                        className="btn btn-MyList"
+                        onClick={() => {
+                          removeFromMylist("watchedList", id);
+
+                          if (checkIfMovieInList("watchedList", id))
+                            setIsInWatchedList(true);
+                          else setIsInWatchedList(false);
+                        }}
+                      >
+                        <MdDone />
                       </button>
                     )}
                   </div>
@@ -154,7 +198,7 @@ const SingleMoviePage = () => {
           <div className="similar-container">
             <MoviesSlider
               title="Similar"
-              url={`${apiRequests.base_url}/${media_type}/${id}/similar${apiRequests.api_key}`}
+              url={`${apiRequests.base_url}/${media_type}/${id}/similar`}
               pageValue={media_type}
             />
           </div>

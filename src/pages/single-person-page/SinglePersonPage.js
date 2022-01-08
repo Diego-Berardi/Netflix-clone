@@ -1,36 +1,37 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useGlobalContext } from "../../context";
 
-import useFetch from "../useFetch";
-import apiRequest from "../apiRequest";
-import { useGlobalContext } from "../context";
+import useFetch from "../../useFetch";
+import apiRequest from "../../apiRequest";
 
-import Header from "../components/Header";
-import MobileMenu from "../components/MobileMenu";
-import SearchBar from '../components/SearchBar'
-import MoviesSlider from "../components/MoviesSlider";
+// components
+import Header from "../../components/header/Header";
+import MobileMenu from "../../components/mobile-menu/MobileMenu";
+import SearchBar from "../../components/search-bar/SearchBar";
+import MoviesSlider from "../../components/movie-slider/MoviesSlider";
+
+// scss
+import "./single-person-page.scss";
 
 const SinglePersonPage = () => {
-  const { showSearchBar } =
-    useGlobalContext();
+  const { showSearchBar } = useGlobalContext();
   const { id } = useParams();
 
   const { data, isLoading, isError, fetchData } = useFetch(
-    `${apiRequest.base_url}/person/${id}${apiRequest.api_key}`
+    `${apiRequest.base_url}/person/${id}`
   );
   const { data: credits } = useFetch(
-    `${apiRequest.base_url}/person/${id}/combined_credits${apiRequest.api_key}`
+    `${apiRequest.base_url}/person/${id}/combined_credits`
   );
 
-
   useEffect(() => {
-    fetchData(`${apiRequest.base_url}/person/${id}${apiRequest.api_key}`);
+    fetchData(`${apiRequest.base_url}/person/${id}`);
   }, [id]);
 
   if (isLoading) return <></>;
   if (isError) return <></>;
   if (!data) return <></>;
-  //   console.log(data);
 
   const { name, birthday, biography, profile_path } = data;
 
@@ -65,11 +66,9 @@ const SinglePersonPage = () => {
             <div className="info">
               <div className="header-info">
                 <h2>{name}</h2>
-                {/* <p>{vote_average}</p> */}
               </div>
               <p>{birthday}</p>
               <div className="biography">
-                {/* {showBio ? biography : `${biography.substring(0, 700)}`} */}
                 {biographyArr.map((elem, i) => {
                   return <p key={i}>{elem}</p>;
                 })}

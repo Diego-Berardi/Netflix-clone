@@ -1,14 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SingleMovie = ({name, title, id, img_url, media_type }) => {
+// scss
+import "./single-movie-item.scss";
+
+const SingleMovie = ({ name, title, id, img_url, media_type }) => {
   return (
     <>
       {img_url && (
         <article className="single-Movie">
           <Link to={`/${media_type}/${id}`}>
             <img src={img_url} alt="" />
-            {media_type === 'person' && <span>{name || title}</span>}
+            {media_type === "person" && <span>{name || title}</span>}
           </Link>
         </article>
       )}

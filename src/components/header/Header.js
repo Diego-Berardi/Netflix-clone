@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
+
 // react icons
 import { FiMenu } from "react-icons/fi";
 import { GoSearch } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
 
-import SearchBar from "./SearchBar";
+//components
+import SearchBar from "../search-bar/SearchBar";
+
+// scss
+import "./header.scss";
 
 const Header = () => {
   const { showMobileMenu, setShowMobileMenu, showSearchBar, setShowSearchBar } =

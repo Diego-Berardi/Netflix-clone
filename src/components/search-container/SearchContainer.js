@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 
-import useFetch from "../useFetch";
-import apiRequests from "../apiRequest";
+import useFetch from "../../useFetch";
+import apiRequests from "../../apiRequest";
 
-import SingleMovie from "./SingleMovie";
+// component
+import SingleMovie from "../single-movie-Item/SingleMovie";
+
+//scss
+import "./search-page.scss";
 
 const SearchContainer = () => {
   const { setShowMobileMenu, searchValue } = useGlobalContext();
@@ -17,7 +21,7 @@ const SearchContainer = () => {
 
   useEffect(() => {
     fetchData(
-      `${apiRequests.Search_url}${apiRequests.api_key}&query=${searchValue}`
+      `${apiRequests.Search_url}?query=${searchValue}`
     );
   }, [searchValue]);
 

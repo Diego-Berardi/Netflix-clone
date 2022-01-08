@@ -1,9 +1,14 @@
-import React, { useEffect, useRef } from "react";
-import useFetch from "../useFetch";
+import React, { useEffect } from "react";
 
-import SingleMovie from "./SingleMovie";
+import useFetch from "../../useFetch";
+import apiRequests from "../../apiRequest";
 
-import apiRequests from "../apiRequest";
+//component
+import SingleMovie from "../single-movie-Item/SingleMovie";
+
+//scss
+import "./movie-slider-container.scss";
+
 
 const MoviesSlider = ({ title, url, pageValue, listParam }) => {
   const { data, isLoading, isError, fetchData } = useFetch(url);
@@ -34,7 +39,6 @@ const MoviesSlider = ({ title, url, pageValue, listParam }) => {
       {list.length > 0 && (
         <section className=" container movie-slider-container">
           <h2>{title}</h2>
-          <div className="movie-slider-container2">
             <div className="movie-slider">
               {list.map((elem, i) => {
                 if (!(elem.poster_path || elem.profile_path)) return;
@@ -52,7 +56,6 @@ const MoviesSlider = ({ title, url, pageValue, listParam }) => {
                 );
               })}
             </div>
-          </div>
         </section>
       )}
     </>

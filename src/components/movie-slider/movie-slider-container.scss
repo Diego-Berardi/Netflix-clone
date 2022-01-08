@@ -1,0 +1,30 @@
+.movie-slider-container {
+  margin: 1rem auto;
+
+  .movie-slider {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    max-width: 100%;
+    padding: 1rem 0;
+
+    overflow-x: scroll;
+
+    scrollbar-width: thin;
+  }
+
+  .movie-slider::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    background-color: transparent;
+  }
+  .movie-slider::-webkit-scrollbar-thumb {
+    display: none;
+    background: white;
+    border-radius: 5px;
+  }
+}
+
+.movie-slider-container:hover .movie-slider::-webkit-scrollbar-thumb {
+  display: block;
+}

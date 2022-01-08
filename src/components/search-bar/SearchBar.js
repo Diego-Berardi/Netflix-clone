@@ -1,6 +1,8 @@
 import React from "react";
+import { useGlobalContext } from "../../context";
 
-import { useGlobalContext } from "../context";
+// scss
+import "./search-bar.scss";
 
 const SearchBar = () => {
   const { handleChange, showSearchBar } = useGlobalContext();

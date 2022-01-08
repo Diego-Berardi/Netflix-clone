@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import apiRequests from "../apiRequest";
-import { useGlobalContext } from "../context";
+import apiRequests from "../../apiRequest";
+import { useGlobalContext } from "../../context";
 
 import { FiInfo } from "react-icons/fi";
 
 import { Link } from "react-router-dom";
+
+//scss
+import "./big-screen-movie.scss";
 
 const BigScreenMovie = ({
   backdrop_path,
@@ -22,7 +25,7 @@ const BigScreenMovie = ({
 
   useEffect(() => {
     if (!id) return;
-    if (checkIfMovieInList(id)) setIsInMyList(true);
+    if (checkIfMovieInList("myList", id)) setIsInMyList(true);
     else setIsInMyList(false);
   }, []);
 
@@ -42,9 +45,8 @@ const BigScreenMovie = ({
               <button
                 className="btn btn-big-screen "
                 onClick={() => {
-                  addMylist({ id, media_type, poster_path });
-                  // console.log(name || title);
-                  if (checkIfMovieInList(id)) setIsInMyList(true);
+                  addMylist("myList", { id, media_type, poster_path });
+                  if (checkIfMovieInList("myList", id)) setIsInMyList(true);
                   else setIsInMyList(false);
                 }}
               >
@@ -54,10 +56,8 @@ const BigScreenMovie = ({
               <button
                 className="btn btn-big-screen"
                 onClick={() => {
-                  removeFromMylist(id);
-                  // console.log(name || title);
-
-                  if (checkIfMovieInList(id)) setIsInMyList(true);
+                  removeFromMylist("myList", id);
+                  if (checkIfMovieInList("myList", id)) setIsInMyList(true);
                   else setIsInMyList(false);
                 }}
               >

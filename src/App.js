@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
-import TypePage from "./pages/TypePage";
-import SingleMoviePage from "./pages/SingleMoviePage";
-import SinglePersonPage from "./pages/SinglePersonPage";
+import TypePage from "./pages/home-page/TypePage";
+import SingleMoviePage from "./pages/single-movie-page/SingleMoviePage";
+import SinglePersonPage from "./pages/single-person-page/SinglePersonPage";
 
 function App() {
   return (
@@ -12,8 +12,7 @@ function App() {
 
         <Route path="/:type" element={<TypePage />} />
 
-
-        <Route path="/person/:id" element={< SinglePersonPage /> } />
+        <Route path="/person/:id" element={<SinglePersonPage />} />
         <Route path="/:media_type/:id" element={<SingleMoviePage />} />
       </Routes>
     </>

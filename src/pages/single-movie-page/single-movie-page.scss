@@ -1,10 +1,7 @@
-.background-single-movie-page{
+.background-single-movie-page {
   background-color: rgba(17, 17, 17, 0.836);
   padding: 1rem;
 }
-
-
-
 
 .movie-page {
   .movie-div {
@@ -31,7 +28,6 @@
         gap: 1rem;
       }
 
-      
       .genres-div {
         display: flex;
         align-items: center;
@@ -56,6 +52,9 @@
           justify-content: center;
           font-weight: 500;
         }
+      }
+      .btn-div {
+        align-items: flex-start;
       }
     }
   }
@@ -83,7 +82,7 @@
 @media only screen and (min-width: 650px) {
   .movie-page .movie-div {
     flex-direction: row;
-    
+
     img {
       width: 300px;
     }
@@ -92,7 +91,7 @@
 
 @media only screen and (min-width: 750px) {
   .movie-page .movie-div {
-    .info{
+    .info {
       .display-flex {
         flex-direction: row;
       }

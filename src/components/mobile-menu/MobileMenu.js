@@ -1,12 +1,14 @@
 import React from "react";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../../context";
 
 //react icons
-import { CgProfile } from "react-icons/cg";
-import { GoSearch } from "react-icons/go";
 import { Link } from "react-router-dom";
 
-import Header from "./Header";
+// component
+import Header from "../header/Header";
+
+// scss
+import "./mobile-menu.scss";
 
 const MobileMenu = () => {
   const { showMobileMenu } = useGlobalContext();
