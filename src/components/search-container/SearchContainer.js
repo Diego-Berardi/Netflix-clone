@@ -5,7 +5,7 @@ import useFetch from "../../useFetch";
 import apiRequests from "../../apiRequest";
 
 // component
-import SingleMovie from "../single-movie-Item/SingleMovie";
+import SingleMovie from "../single-movie-Item/SingleMovieItem";
 
 //scss
 import "./search-page.scss";

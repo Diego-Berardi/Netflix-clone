@@ -1,7 +1,12 @@
 # Netflix Clone
-This is the final front end projects for Start2Impact, is a website that look like Netflix where you can search Movies, Tv Shows and save it in your list. The project is developed with Reach and The Movie Database's api: https://www.themoviedb.org/ .
+Final front end projects for Start2Impact, is a website that look like Netflix where you can search Movies, Tv Shows and save it in your list. The project is developed with Reach and The Movie Database's api: https://www.themoviedb.org/ .
 
 You can see the Project here: https://netflix-clone-database.netlify.app/ 
+
+![](./src/assets/img/netflix2.png)
+
+
+![](./src/assets/img/Screenshot-3-Netflix%20Clone.png)
 
 
 # Getting Started with Create React App
